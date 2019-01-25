@@ -1,0 +1,195 @@
+body, html
+{
+  background-color: #840011;
+  height: 100%;
+}
+
+/* Header settings here */
+.parallax
+{
+  background-image: url(../media/img1.jpg);
+  height: 76.9vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.jumbotron
+{
+  background-color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+
+
+.jumbotron h1
+{
+  color: #840011;
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.mobile-h2
+{
+  display: none;
+  color: white;
+}
+
+#focus:hover
+{
+  color: red;
+}
+ul
+{
+  margin: auto;
+}
+
+.navbar-container
+{
+  background-color: #840011;
+  z-index: 1;
+  position: sticky;
+  top: 0;
+}
+
+/* Top image here */
+.container-full img
+{
+  width: 100%;
+  height: 76.9vh;
+  object-fit: cover;
+}
+
+/* Post of the day  */
+.container-potd
+{
+  background-image: url(../party.jpg);
+  background-size: auto;
+}
+video
+{
+  height: 85vh;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Merchandise section */
+.container-merch
+{
+  margin: auto;
+  text-align: center;
+}
+
+
+
+.card-merch img
+{
+  width: 17.5vw;
+  height: 17.5vw;
+  object-fit: cover;
+}
+
+.card-merch a:after
+{
+  content: '\A';
+  position: absolute;
+  width: 100%; height: 100%;
+  top: 0; left: 0;
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  transition: all 1s;
+  -webkit-transition: all 1s;
+}
+
+.card-merch a:hover:after
+{
+  opacity: 1;
+}
+
+.card-merch a:hover + .item-1 {display: inline;}
+.card-merch a:hover + .item-2 {display: inline;}
+.card-merch a:hover + .item-3 {display: inline;}
+.card-merch a:hover + .item-4 {display: inline;}
+.card-merch a:hover + .item-5 {display: inline;}
+.card-merch a:hover + .item-6 {display: inline;}
+
+.h-merch
+{
+  display: none;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.h-merch:hover
+{
+  display: inline;
+}
+
+/* Blog Post Section */
+
+
+.container-blog
+{
+  padding: 0 25vw 0 25vw;
+}
+/* Media settings here */
+
+@media (max-width: 992px)
+{
+  .parallax
+  {
+    height: 91.5vh;
+  }
+  .jumbotron-toggle
+  {
+    display: none;
+  }
+  ul
+  {
+    margin: 0;
+  }
+  .mobile-h2
+  {
+    display: inline;
+  }
+  .container-full img
+  {
+    height: 91.5vh;
+  }
+  video
+  {
+    height: 76vh;
+  }
+  .navbar-container
+  {
+    background-color: #840011;
+    z-index: 1;
+    position: sticky;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px)
+{
+      video
+      {
+        width: 100%;
+      }
+}
+
+@media (max-width: 371px)
+{
+  .mobile-h2
+  {
+    font-size: 100%;
+    margin: 0;
+  }
+  .container-full img
+  {
+    height: 92.5vh;
+  }
+}
