@@ -21,7 +21,11 @@ body, html
   text-align: center;
 }
 
-
+.logo-main img
+{
+  max-width: 100px;
+  height: 100px;
+}
 
 .jumbotron h1
 {
@@ -54,17 +58,12 @@ ul
 }
 
 /* Top image here */
-.container-full img
-{
-  width: 100%;
-  height: 76.9vh;
-  object-fit: cover;
-}
+
 
 /* Post of the day  */
 .container-potd
 {
-  background-image: url(../party.jpg);
+  background-image: url(../media/party.jpg);
   background-size: auto;
 }
 video
@@ -156,10 +155,8 @@ video
   {
     display: inline;
   }
-  .container-full img
-  {
-    height: 91.5vh;
-  }
+
+
   video
   {
     height: 76vh;
@@ -188,8 +185,5 @@ video
     font-size: 100%;
     margin: 0;
   }
-  .container-full img
-  {
-    height: 92.5vh;
-  }
+
 }

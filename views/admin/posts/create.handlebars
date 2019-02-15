@@ -1,0 +1,39 @@
+<h1>Create Post</h1>
+
+<form action="/admin/posts/create" method="post" enctype="multipart/form-data">
+<!-- What is the post title? -->
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input name="title" type="text" class="form-control" id="title" placeholder="Post title">
+  </div>
+
+<!-- File upload section. -->
+<div class="form-group">
+  <label for="file">Upload File</label>
+  <input name="fileupload" type="file" class="form-control" id="title">
+</div>
+
+<!-- Status of post, visibility. -->
+  <div class="form-group">
+    <label for="status">Status</label>
+    <select class="form-control" name="status" id="status">
+      <option value="public">Public</option>
+      <option value="private">Private</option>
+      <option value="draft">Draft</option>
+    </select>
+  </div>
+<!-- Will commoents be allowed on this post? -->
+  <div class="form-check">
+    <label for="allowComments" class="form-check-label">
+    <input name="allowComments" type="checkbox" class="form-check-input" id="allowComments">
+        Allow Comments
+    </label>
+  </div>
+<!-- Post body/description. -->
+  <div class="form-group">
+    <label for="body">Description</label>
+    <textarea name="body" class="form-control" cols="30" rows="10" id="body" placeholder="Post Description"></textarea>
+  </div>
+<!-- Submit post button. -->
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
