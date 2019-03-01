@@ -1,17 +1,42 @@
 <h1>Edit Post</h1>
 
-<form action="/admin/posts/edit/{{post.id}}?_method=PUT" method="post">
+
+
+<form action="/admin/posts/edit/{{post.id}}?_method=PUT" method="post" enctype="multipart/form-data">
 <!-- What is the post title? -->
   <div class="form-group">
-    <label for="title">Title</label>
+    <label for="title"> <strong>Title</strong> </label>
     <input name="title" type="text" class="form-control" id="title" value="{{post.title}}">
   </div>
 
-<!-- Status of post, visibility. -->
-
-
+<!-- Category of Post. -->
   <div class="form-group">
-    <label for="status">Status</label>
+    <label for="status"> <strong>Category</strong> </label>
+    <select class="form-control" name="category" id="status">
+    {{#select post.category}}
+    {{#each categories}}
+        <option value="{{id}}">{{name}}</option>
+    {{/each}}
+    {{/select}}
+    </select>
+  </div>
+
+  <!-- Post body/description. -->
+  <div class="form-group">
+    <label for="body"> <strong>Summary</strong> </label>
+    <textarea required name="summary" class="form-control" cols="30" rows="4" id="summary" placeholder="Post Summary" >{{post.summary}}</textarea>
+  </div>
+
+  <!-- File upload section. -->
+  <div class="form-group">
+    <label for="file"><strong>Upload File</strong></label>
+    <input name="fileUpload" type="file" class="form-control" id="fileupload" >
+  </div>
+
+
+<!-- Status of post, visibility. -->
+  <div class="form-group">
+    <label for="status"> <strong>Status</strong> </label>
     <select class="form-control" name="status" id="status">
   {{#select post.status}}
       <option value="public">Public</option>
@@ -20,6 +45,7 @@
   {{/select}}
     </select>
   </div>
+
 <!-- Will commoents be allowed on this post? -->
   <div class="form-check">
     <label for="allowComments" class="form-check-label">
@@ -27,11 +53,13 @@
         Allow Comments
     </label>
   </div>
+
 <!-- Post body/description. -->
   <div class="form-group">
-    <label for="body">Description</label>
+    <label for="body"><strong>Description</strong></label>
     <textarea name="body" class="form-control" cols="30" rows="10" id="body">{{post.body}}</textarea>
   </div>
+
 <!-- Submit post button. -->
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

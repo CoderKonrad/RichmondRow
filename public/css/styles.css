@@ -57,6 +57,7 @@ ul
   top: 0;
 }
 
+
 /* Top image here */
 
 
@@ -84,8 +85,8 @@ video
 
 .card-merch img
 {
-  width: 17.5vw;
-  height: 17.5vw;
+  width: 12vw;
+  height: 12vw;
   object-fit: cover;
 }
 
@@ -134,6 +135,17 @@ video
 .container-blog
 {
   padding: 0 25vw 0 25vw;
+}
+
+.container-white
+{
+  margin-top: 2em;
+  color: white;
+}
+
+.container-bg-white
+{
+  background-color: white;
 }
 /* Media settings here */
 

@@ -139,7 +139,8 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-user">{{#if user}}{{user.firstName}}{{/if}}</i>  <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                    <i class="fa fa-user">{{#if user}}{{user.firstName}}{{/if}}</i>
+                    <i class="fa fa-fw fa-sign-out"></i>Logout</a>
             </li>
         </ul>
     </div>
@@ -149,6 +150,12 @@
 
 <div class="content-wrapper">
     <div class="container-fluid">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="/admin">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Blank Page</li>
+      </ol>
         <div class="row">
             <div class="col-12">
 

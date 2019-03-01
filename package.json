@@ -12,14 +12,26 @@
   "author": "Konrad Gapinski",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "busboy": "^0.3.0",
+    "connect-busboy": "0.0.2",
+    "connect-flash": "^0.1.1",
     "express": "^4.16.4",
-    "express-fileupload": "^1.1.1-alpha.2",
+    "express-fileupload": "^1.1.1-alpha.3",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
     "faker": "^4.1.0",
-    "formidable": "^1.2.1",
+    "md5": "^2.2.1",
     "method-override": "^3.0.0",
+    "moment": "^2.24.0",
     "mongoose": "^5.4.11",
-    "mysql": "^2.16.0"
+    "mongoose-url-slugs": "^1.0.2",
+    "multer": "^1.4.1",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.10",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "streamifier": "^0.1.1"
   }
 }

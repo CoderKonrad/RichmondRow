@@ -5,12 +5,19 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const flash = require('connect-flash');
+const sessions = require('express-session');
 const upload = require('express-fileupload');
+const busboy = require('connect-busboy');
+const {mongoDbUrl} = require('./config/database');
+const passport = require('passport');
+
+app.use(busboy());
 
 // Connect to DB
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/cms', { useNewUrlParser: true }).then((db)=>{
+mongoose.connect(mongoDbUrl, { useNewUrlParser: true }).then((db)=>{
 
   console.log('MONGO Connected')
 
@@ -20,11 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Load handler functions
 
-const {select} = require('./helpers/handlebars-helpers');
+const {select, generateDate, paginate} = require('./helpers/handlebars-helpers');
 
 // Set View Engine
 
-app.engine('handlebars', exphbs({defaultLayout: 'home', helpers: {select: select}}));
+app.engine('handlebars', exphbs({defaultLayout: 'home', helpers: {select: select, generateDate: generateDate, paginate: paginate}}));
 app.set('view engine', 'handlebars');
 
 // Upload Middleware
@@ -40,18 +47,52 @@ app.use(bodyParser.json());
 
 app.use(methodOverride('_method'));
 
+// Load sessions
+
+app.use(sessions(
+  {
+    secret: 'anthonylasochalovesparties',
+    resave: true,
+    saveUninitialized: true
+  }
+));
+
+// Load flash
+
+app.use(flash());
+
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// Loacal Variables using Middleware
+
+app.use((req, res, next)=>
+{
+  res.locals.user = req.user || null;
+  res.locals.success_message = req.flash(`success_message`);
+  res.locals.error_message = req.flash('error_message');
+  res.locals.form_errors = req.flash('form_errors');
+  res.locals.error = req.flash('error');
+  next();
+});
+
 // Load Routes
 
 const home = require('./routes/home/index');
 const admin = require('./routes/admin/index');
-const posts = require('./routes/admin/posts')
+const posts = require('./routes/admin/posts');
+const categories = require('./routes/admin/categories');
+const comments = require('./routes/admin/comments');
 
 // Use Routes
 
 app.use('/', home);
 app.use('/admin', admin);
 app.use('/admin/posts', posts);
-
+app.use('/admin/categories', categories);
+app.use('/admin/comments', comments);
 
 
 app.listen(4500, ()=>{

@@ -1,21 +1,23 @@
 <!-- Main container, holds the featured content slideshow reel. -->
-<header>
-  <!-- <div class="container-full">
-    <img class="img-fluid" src="img1.jpg" alt="">
-  </div> -->
-  <div class="parallax">
 
+  <header>
+    <!-- <div class="container-full">
+      <img class="img-fluid" src="img1.jpg" alt="">
+    </div> -->
+    <div class="parallax">
+
+    </div>
+
+  </header>
+  <!-- Top of navbar settings here -->
+
+  <div class="jumbotron jumbotron-fluid jumbotron-toggle" style="margin:0;">
+
+    <div class="container">
+      <h1 class="display-4" >Richmond Row</h1>
+    </div>
   </div>
 
-</header>
-<!-- Top of navbar settings here -->
-
-<div class="jumbotron jumbotron-fluid jumbotron-toggle" style="margin:0;">
-
-  <div class="container">
-    <h1 class="display-4" >Richmond Row</h1>
-  </div>
-</div>
 <!-- Navbar settings here -->
 <div class="container navbar-container" style="max-width:100%;">
   <nav class="navbar navbar-expand-lg navbar-dark">
@@ -32,9 +34,11 @@
           <img src="/media/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
           Richmond Row
         </a>
+        {{#userAdmin user.email 'gapi3100@mylaurier.ca'}}
         <li class="nav-item" >
           <a class="nav-link" href="/admin">Admin<span class="sr-only">(current)</span></a>
         </li>
+        {{/userAdmin}}
         <li class="nav-item">
           <a class="nav-link" href="#">Blog</a>
         </li>
@@ -86,21 +90,21 @@
   <div class="row">
     <div class="col-sm">
       <div class="card-merch">
-        <a href="#"> <img src="/media/item1.jpg" alt=""> </a>
+        <a href="#"> <img class="img-merch" src="/media/item1.jpg" alt=""> </a>
         <h5 class="h-merch item-1">Party Barge <br> $25</h5>
       </div>
     </div>
 
     <div class="col-sm">
       <div class="card-merch">
-        <a href="#"> <img src="/media/item2.jpg" alt=""> </a>
+        <a href="#"> <img class="img-merch" src="/media/item2.jpg" alt=""> </a>
         <h5 class="h-merch item-2">Beer Holder <br> $50</h5>
       </div>
     </div>
 
     <div class="col-sm">
       <div class="card-merch">
-        <a href="#"> <img src="/media/item3.jpeg" alt=""> </a>
+        <a href="#"> <img class="img-merch" src="/media/item3.jpeg" alt=""> </a>
         <h5 class="h-merch item-3">Beer Buckle <br> $15</h5>
       </div>
     </div>
@@ -110,21 +114,21 @@
   <div class="row">
     <div class="col-sm">
       <div class="card-merch">
-        <a href="#"> <img src="/media/item4.jpg" alt=""> </a>
+        <a href="#"> <img class="img-merch" src="/media/item4.jpg" alt=""> </a>
         <h5 class="h-merch item-4">Beer Mug <br> $90</h5>
       </div>
     </div>
 
     <div class="col-sm">
       <div class="card-merch">
-        <a href="#"> <img src="/media/item5.jpg" alt=""> </a>
+        <a href="#"> <img class="img-merch" src="/media/item5.jpg" alt=""> </a>
         <h5 class="h-merch item-5">Beer Sleeve <br> $55</h5>
       </div>
     </div>
 
     <div class="col-sm">
       <div class="card-merch">
-        <a href="#"> <img src="/media/item6.png" alt=""> </a>
+        <a href="#"> <img class="img-merch" src="/media/item6.png" alt=""> </a>
         <h5 class="h-merch item-6">Shotgunner <br> $75</h5>
       </div>
     </div>
@@ -138,4 +142,36 @@
   </div>
 </div>
 
+<div class="container container-white">
+{{#each posts}}
 <!-- BLOG FEED -->
+
+  <div class="row">
+    <div class="col-md-7">
+      <a href="#">
+        <img class="img-fluid"src="/uploads/{{file}}" alt="">
+      </a>
+    </div>
+    <div class="col-md-5">
+      <h3>{{title}}</h3>
+      <p>{{summary}}</p>
+      <p>Posted on {{generateDate data "MMMM Do YYYY"}} by</p>
+      <a class="btn btn-primary" href="/post/{{slug}}">View Post</a>
+    </div>
+  </div>
+  <hr>
+
+{{/each}}
+
+<!-- PAGINATION -->
+
+<ul class="pagination justify-content-center mb-4">
+  {{#paginate current=current pages=pages}}
+
+
+
+  {{/paginate}}
+</ul>
+
+
+</div>

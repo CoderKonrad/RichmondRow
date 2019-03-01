@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
+const Comment = require('../../models/Comment');
+const Category = require('../../models/Category');
 const faker = require('faker');
+const {userAuthenticated} = require('../../helpers/authentication');
 // Set Admin Layout
 
 router.all('/*', (req, res, next)=>{
@@ -14,28 +17,18 @@ router.all('/*', (req, res, next)=>{
 
 router.get('/', (req, res)=>{
 
-  res.render('admin/index');
-
-});
-
-router.post('/generate-fake-posts', (req, res)=>
-{
-  for(let i = 0; i < req.body.amount; i++)
+  Post.count().then(postCount=>
   {
-    let post = new Post();
-    post.title = faker.name.title();
-    post.status = 'public';
-    post.allowComments = faker.random.boolean();
-    post.body = faker.lorem.sentence();
-
-    post.save(function(err)
+    Comment.count().then(commentCount=>
     {
-      if (err) throw err;
+      Category.count().then(categoryCount=>
+      {
+        res.render('admin/index', {postCount: postCount, commentCount: commentCount, categoryCount: categoryCount});
+      });
     });
-  }
-
-  res.redirect('/admin/posts');
+  });
 });
+
 
 
 

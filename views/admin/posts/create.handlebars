@@ -1,21 +1,44 @@
 <h1>Create Post</h1>
 
+{{#each errors}}
+  <div class="alert alert-danger">
+    {{message}}
+  </div>
+
+{{/each}}
+
 <form action="/admin/posts/create" method="post" enctype="multipart/form-data">
 <!-- What is the post title? -->
   <div class="form-group">
-    <label for="title">Title</label>
-    <input name="title" type="text" class="form-control" id="title" placeholder="Post title">
+    <label for="title"><strong>Title</strong></label>
+    <input required name="title" type="text" class="form-control" id="title" placeholder="Post title" >
+  </div>
+
+<!-- Category of Post. -->
+  <div class="form-group">
+    <label for="status"> <strong>Category</strong> </label>
+    <select class="form-control" name="category" id="status">
+    {{#each categories}}
+        <option value="{{id}}">{{name}}</option>
+    {{/each}}
+    </select>
+  </div>
+
+<!-- Post body/description. -->
+  <div class="form-group">
+    <label for="body"> <strong>Summary</strong> </label>
+    <textarea required name="summary" class="form-control" cols="30" rows="4" id="summary" placeholder="Post Summary" ></textarea>
   </div>
 
 <!-- File upload section. -->
 <div class="form-group">
-  <label for="file">Upload File</label>
-  <input name="fileupload" type="file" class="form-control" id="title">
+  <label for="file"> <strong>Upload File</strong> </label>
+  <input name="fileUpload" type="file" class="form-control" id="fileupload" >
 </div>
 
 <!-- Status of post, visibility. -->
   <div class="form-group">
-    <label for="status">Status</label>
+    <label for="status"> <strong>Status</strong> </label>
     <select class="form-control" name="status" id="status">
       <option value="public">Public</option>
       <option value="private">Private</option>
@@ -31,8 +54,8 @@
   </div>
 <!-- Post body/description. -->
   <div class="form-group">
-    <label for="body">Description</label>
-    <textarea name="body" class="form-control" cols="30" rows="10" id="body" placeholder="Post Description"></textarea>
+    <label for="body"> <strong>Description</strong> </label>
+    <textarea required name="body" class="form-control" cols="30" rows="10" id="body" placeholder="Post Description" ></textarea>
   </div>
 <!-- Submit post button. -->
   <button type="submit" class="btn btn-primary">Submit</button>
