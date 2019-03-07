@@ -1,3 +1,6 @@
+const _ = require('lodash');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
@@ -7,6 +10,11 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+if (!config.get('jwtPrivateKey'))
+{
+  console.error('FATAL ERROR: jwtPrivateKey is not defined.');
+  process.exit(1);
+}
 /*
 |--------------------------------------------------------------------------
 | Home routes collection
@@ -99,6 +107,8 @@ passport.use(new LocalStrategy({usernameField: 'email'}, (email, password, done)
       if (err) return err;
       if (matched)
       {
+        const token = jwt.sign({_id: user._id}, config.get('jwtPrivateKey'));
+        console.log(token);
         return done(null, user);
       }
       else
@@ -139,11 +149,13 @@ router.post('/login', (req, res, next)=>{
 
   passport.authenticate('local',
   {
-    successRedirect: '/admin',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
   })(req, res, next);
 });
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -232,12 +244,13 @@ router.post('/register', (req, res)=>{
       if(!user)
       {
         const newUser = new User(
-          {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            password: req.body.password
-          }
+          // {
+          //   firstName: req.body.firstName,
+          //   lastName: req.body.lastName,
+          //   email: req.body.email,
+          //   password: req.body.password
+          // }
+          _.pick(req.body, ['firstName', 'lastName', 'email', 'password'])
         );
 
         bcrypt.genSalt(10, (err, salt)=>
@@ -249,8 +262,13 @@ router.post('/register', (req, res)=>{
             newUser.save().then(savedUser=>
             {
               req.flash('success_message', 'Congratulations! You are now a member of Richmond Row.');
-              res.redirect('/login');
+              const token = user.generateAuthToken();
+              const token = jwt.sign({ _id: newUser._id }, config.get('jwtPrivateKey'));
+              res.header('x-auth-token', token).send(_.pick(newUser, ['_id', 'firstName', 'email']));
+              // res.redirect('/login');
             });
+
+
           });
         });
       }

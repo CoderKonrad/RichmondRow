@@ -20,8 +20,8 @@ const UserSchema = new Schema({
   email: {
 
     type: String,
-    required: true
-
+    required: true,
+    unique: true
   },
 
   password: {
@@ -34,7 +34,13 @@ const UserSchema = new Schema({
 
 UserSchema.methods.testMethod = function()
 {
-  
+
 };
+
+UserSchema.methods.generateAuthToken = function()
+{
+  
+}
+
 // This is going too be the name for our model:
 module.exports = mongoose.model('users', UserSchema);
