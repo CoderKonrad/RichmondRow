@@ -9,6 +9,7 @@ const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const auth = require('../../middleware/auth');
 
 if (!config.get('jwtPrivateKey'))
 {
@@ -139,6 +140,20 @@ passport.deserializeUser(function(id, done)
 
 /*
 |--------------------------------------------------------------------------
+| Get user details
+|--------------------------------------------------------------------------
+|
+| This function verifies user tokens.
+|
+*/
+router.get('/me', auth, async (req, res)=>
+{
+  const user = await User.findById(req.user._id).select('-password');
+  res.send(user);
+});
+
+/*
+|--------------------------------------------------------------------------
 | Login form route
 |--------------------------------------------------------------------------
 |
@@ -262,8 +277,7 @@ router.post('/register', (req, res)=>{
             newUser.save().then(savedUser=>
             {
               req.flash('success_message', 'Congratulations! You are now a member of Richmond Row.');
-              const token = user.generateAuthToken();
-              const token = jwt.sign({ _id: newUser._id }, config.get('jwtPrivateKey'));
+              const token = newUser.generateAuthToken();
               res.header('x-auth-token', token).send(_.pick(newUser, ['_id', 'firstName', 'email']));
               // res.redirect('/login');
             });

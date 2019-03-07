@@ -11,7 +11,7 @@ const {userAuthenticated} = require('../../helpers/authentication');
 | Set admin layout
 |--------------------------------------------------------------------------
 */
-router.all('/*', (req, res, next)=>
+router.all('/*', userAuthenticated, (req, res, next)=>
 {
   req.app.locals.layout = 'admin';
   next();

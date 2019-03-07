@@ -5,6 +5,7 @@ const Comment = require('../../models/Comment');
 const Category = require('../../models/Category');
 const faker = require('faker');
 const {userAuthenticated} = require('../../helpers/authentication');
+const auth = require('../../middleware/auth');
 // Set Admin Layout
 
 router.all('/*', (req, res, next)=>{
@@ -15,7 +16,7 @@ router.all('/*', (req, res, next)=>{
 });
 
 
-router.get('/', (req, res)=>{
+router.get('/', auth, (req, res)=>{
 
   Post.count().then(postCount=>
   {

@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
 const Comment = require('../../models/Comment');
+const {userAuthenticated} = require('../../helpers/authentication');
 
 /*
 |--------------------------------------------------------------------------
 | Render comment index page
 |--------------------------------------------------------------------------
 */
-router.all('/*', (req, res, next)=>
+router.all('/*', userAuthenticated, (req, res, next)=>
 {
   res.app.locals.layout = 'admin';
   next();
