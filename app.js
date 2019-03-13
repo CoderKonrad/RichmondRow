@@ -80,7 +80,9 @@ app.use((req, res, next)=>
 
 // Load Routes
 
+const auth = require('./routes/auth');
 const home = require('./routes/home/index');
+const users = require('./routes/home/users');
 const admin = require('./routes/admin/index');
 const posts = require('./routes/admin/posts');
 const categories = require('./routes/admin/categories');
@@ -89,6 +91,8 @@ const comments = require('./routes/admin/comments');
 // Use Routes
 
 app.use('/', home);
+app.use('/auth', auth);
+app.use('/home/users', users);
 app.use('/admin', admin);
 app.use('/admin/posts', posts);
 app.use('/admin/categories', categories);

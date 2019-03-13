@@ -12,6 +12,7 @@
   "author": "Konrad Gapinski",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "busboy": "^0.3.0",
@@ -23,6 +24,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "faker": "^4.1.0",
+    "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.0",
     "lodash": "^4.17.11",
     "md5": "^2.2.1",
