@@ -1,3 +1,5 @@
+const admin = require('../../middleware/admin');
+const auth = require('../../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
@@ -11,7 +13,7 @@ const {userAuthenticated} = require('../../helpers/authentication');
 | Set admin layout
 |--------------------------------------------------------------------------
 */
-router.all('/*', userAuthenticated, (req, res, next)=>
+router.all('/*', [auth, admin], (req, res, next)=>
 {
   req.app.locals.layout = 'admin';
   next();
@@ -22,7 +24,7 @@ router.all('/*', userAuthenticated, (req, res, next)=>
 | Render the main admin page
 |--------------------------------------------------------------------------
 */
-router.get('/', (req, res)=>
+router.get('/', [auth, admin], (req, res)=>
 {
   Post.find({})
   .populate('category')
@@ -40,7 +42,7 @@ router.get('/', (req, res)=>
 | Render the my posts page
 |--------------------------------------------------------------------------
 */
-router.get('/my-posts', (req, res)=>
+router.get('/my-posts', [auth, admin], (req, res)=>
 {
   try
   {
@@ -63,7 +65,7 @@ router.get('/my-posts', (req, res)=>
 | Render the create post page
 |--------------------------------------------------------------------------
 */
-router.get('/create', (req, res)=>
+router.get('/create', [auth, admin], (req, res)=>
 {
   Category.find({}).then(categories=>
   {
@@ -80,7 +82,7 @@ router.get('/create', (req, res)=>
 | located in models/Post.js
 |
 */
-router.post('/create', (req, res)=>
+router.post('/create', [auth, admin], (req, res)=>
 {
   let errors = [];
   if (!req.body.title)
@@ -155,7 +157,7 @@ router.post('/create', (req, res)=>
 | Render edit posts page
 |--------------------------------------------------------------------------
 */
-router.get('/edit/:id', (req, res)=>
+router.get('/edit/:id', [auth, admin], (req, res)=>
 {
   Post.findOne({_id: req.params.id}).then(post=>
   {
@@ -172,7 +174,7 @@ router.get('/edit/:id', (req, res)=>
 | Edit posts functionality
 |--------------------------------------------------------------------------
 */
-router.put('/edit/:id', (req, res)=> {
+router.put('/edit/:id', [auth, admin], (req, res)=> {
 
   Post.findOne({_id: req.params.id}).then(post=>
   {
@@ -221,7 +223,7 @@ router.put('/edit/:id', (req, res)=> {
 | Deleting posts functionality
 |--------------------------------------------------------------------------
 */
-router.delete('/:id', (req, res)=>
+router.delete('/:id', [auth, admin], (req, res)=>
 {
   Post.findOne({_id: req.params.id})
     .populate('comments')

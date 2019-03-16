@@ -1,3 +1,5 @@
+const admin = require('../../middleware/admin');
+const auth = require('../../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const Category = require('../../models/Category');
@@ -9,7 +11,7 @@ const {userAuthenticated} = require('../../helpers/authentication');
 | Set admin layout
 |--------------------------------------------------------------------------
 */
-router.all('/*', userAuthenticated, (req, res, next)=>
+router.all('/*', [auth, admin], userAuthenticated, (req, res, next)=>
 {
   req.app.locals.layout = 'admin';
   next();
@@ -20,7 +22,7 @@ router.all('/*', userAuthenticated, (req, res, next)=>
 | Render categories page
 |--------------------------------------------------------------------------
 */
-router.get('/', (req, res)=>
+router.get('/', [auth, admin], (req, res)=>
 {
   Category.find({}).then(categories=>
   {
@@ -33,7 +35,7 @@ router.get('/', (req, res)=>
 | Receive new category form details
 |--------------------------------------------------------------------------
 */
-router.post('/create', (req, res)=>
+router.post('/create', [auth, admin], (req, res)=>
 {
     const newCategory = new Category({
         name: req.body.name
@@ -49,7 +51,7 @@ router.post('/create', (req, res)=>
 | Render category edit pages
 |--------------------------------------------------------------------------
 */
-router.get('/edit/:id', (req, res)=>
+router.get('/edit/:id', [auth, admin], (req, res)=>
 {
     Category.findOne({_id: req.params.id}).then(category=>
       {
@@ -62,7 +64,7 @@ router.get('/edit/:id', (req, res)=>
 | Edit categories functionality
 |--------------------------------------------------------------------------
 */
-router.put('/edit/:id', (req, res)=>
+router.put('/edit/:id', [auth, admin], (req, res)=>
 {
     Category.findOne({_id: req.params.id}).then(category=>
       {
@@ -79,7 +81,7 @@ router.put('/edit/:id', (req, res)=>
 | Delete categories functionality
 |--------------------------------------------------------------------------
 */
-router.delete('/:id', (req, res)=>
+router.delete('/:id', [auth, admin], (req, res)=>
 {
   Category.remove({_id: req.params.id}).then(result=>
   {

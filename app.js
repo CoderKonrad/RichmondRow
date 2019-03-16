@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const config = require('config');
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -13,6 +14,24 @@ const {mongoDbUrl} = require('./config/database');
 const passport = require('passport');
 
 app.use(busboy());
+
+app.use(sessions({
+  name: 'sid',
+  secret: config.get('jwtPrivateKey'),
+  resave: false,
+  
+  saveUninitialized: false,
+  cookie: {
+    sameSite: true,
+    secure: false
+  }
+}));
+
+if (!config.get('jwtPrivateKey'))
+{
+  console.log('FATAL ERROR: jwtPrivateKey is not defined.');
+  process.exit(1);
+}
 
 // Connect to DB
 
@@ -82,6 +101,7 @@ app.use((req, res, next)=>
 
 const auth = require('./routes/auth');
 const home = require('./routes/home/index');
+const logout = require('./routes/logout');
 const users = require('./routes/home/users');
 const admin = require('./routes/admin/index');
 const posts = require('./routes/admin/posts');
@@ -93,6 +113,7 @@ const comments = require('./routes/admin/comments');
 app.use('/', home);
 app.use('/auth', auth);
 app.use('/home/users', users);
+app.use('/logout', logout);
 app.use('/admin', admin);
 app.use('/admin/posts', posts);
 app.use('/admin/categories', categories);

@@ -1,5 +1,5 @@
 const _ = require('lodash');
-
+const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const Category = require('../../models/Category');
 const config = require('config');
@@ -8,11 +8,8 @@ const Post = require('../../models/Post');
 const router = express.Router();
 const User = require('../../models/User');
 
-if (!config.get('jwtPrivateKey'))
-{
-  console.error('FATAL ERROR: jwtPrivateKey is not defined.');
-  process.exit(1);
-}
+
+
 /*
 |--------------------------------------------------------------------------
 | Home routes collection
@@ -34,6 +31,13 @@ router.all('/*', (req, res, next)=>{
 |--------------------------------------------------------------------------
 */
 router.get('/', (req, res)=>{
+  try
+  {
+    console.log('isadmin? '+ req.user.isAdmin);
+  }
+  catch{
+
+  }
   const 
   perPage = 5;
   const page = req.query.page || 1;
@@ -52,7 +56,9 @@ router.get('/', (req, res)=>{
           posts: posts,
           categories: categories,
           current: parseInt(page),
-          pages: Math.ceil(postCount / perPage)
+          pages: Math.ceil(postCount / perPage),
+          user: req.session.user,
+          
         });
       });
     });

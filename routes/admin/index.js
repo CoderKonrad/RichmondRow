@@ -1,3 +1,4 @@
+const admin = require('../../middleware/admin');
 const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
@@ -8,7 +9,7 @@ const {userAuthenticated} = require('../../helpers/authentication');
 const auth = require('../../middleware/auth');
 // Set Admin Layout
 
-router.all('/*', (req, res, next)=>{
+router.all('/*', [auth, admin], (req, res, next)=>{
 
   req.app.locals.layout = 'admin';
   next();
@@ -16,7 +17,7 @@ router.all('/*', (req, res, next)=>{
 });
 
 
-router.get('/', auth, (req, res)=>{
+router.get('/', [auth, admin], (req, res)=>{
 
   Post.count().then(postCount=>
   {
