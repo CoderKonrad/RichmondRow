@@ -22,9 +22,11 @@
           <img src="/media/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
           Richmond Row
         </a>
+        {{#if admin}}
         <li class="nav-item" >
           <a class="nav-link" href="/admin">Admin<span class="sr-only">(current)</span></a>
         </li>
+        {{/if}}
         <li class="nav-item">
           <a class="nav-link" href="#">Blog</a>
         </li>
@@ -32,14 +34,24 @@
           <a class="nav-link" href="#">Merchandise</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Instagram</a>
+          <a class="nav-link" href="/instagram">Instagram</a>
         </li>
+        {{#unless user}}
         <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
           <a id="focus" class="nav-link" href="/register">Sign Up</a>
         </li>
+        {{/unless}}
+        {{#if user}}
+        <li class="nav-item">
+          <form  action="/logout/" method="post">
+            <input class="btn btn-link" type="submit" value="Logout">
+          </form>
+          
+        </li>
+        {{/if}}
       </ul>
     </div>
   </nav>
