@@ -56,15 +56,6 @@ UserSchema.methods.testMethod = function()
 };
 
 
-function validateUser(user) {
-  const schema = {
-    firstName: Joi.string().required(),
-    lastName: Joi.string().required(),
-    email: Joi.string().required().max(255).email(),
-    password: Joi.string().min(5).max(255).required()
-  };
-  return Joi.validate(user, schema);
-}
+
 // This is going too be the name for our model:
-exports.User = User; 
-exports.validate = validateUser;
+module.exports = mongoose.model('users', UserSchema);

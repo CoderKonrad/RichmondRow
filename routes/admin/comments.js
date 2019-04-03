@@ -1,8 +1,8 @@
 const admin = require('../../middleware/admin');
 const auth = require('../../middleware/auth');
+const Post = require('../../models/Post');
 const express = require('express');
 const router = express.Router();
-const Post = require('../../models/Post');
 const Comment = require('../../models/Comment');
 const session = require('express-session');
 

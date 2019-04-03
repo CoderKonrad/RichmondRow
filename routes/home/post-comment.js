@@ -1,8 +1,8 @@
-const express = require('express');
-const Comment = require('../../models/Comment');
-const Post = require('../../models/Post');
-const router = express.Router();
 const auth = require('../../middleware/auth');
+const express = require('express');
+const Post = require('../../models/Post');
+const Comment = require('../../models/Comment');
+const router = express.Router();
 /*
 |--------------------------------------------------------------------------
 | Posting comments functionality

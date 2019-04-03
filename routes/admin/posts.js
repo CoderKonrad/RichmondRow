@@ -7,7 +7,6 @@ const fs = require('fs');
 const path = require('path');
 const { isEmpty, uploadDir } = require('../../helpers/upload-helper');
 const Category = require('../../models/Category');
-const {userAuthenticated} = require('../../helpers/authentication');
 /*
 |--------------------------------------------------------------------------
 | Set admin layout
@@ -44,9 +43,11 @@ router.get('/', [auth, admin], (req, res)=>
 */
 router.get('/my-posts', [auth, admin], (req, res)=>
 {
+  console.log(req.session.user);
   try
   {
-    Post.find({user: req.user.id})
+    Post.find({user: req.session.user})
+    
     .populate('category')
     .then(posts=>
       {
@@ -129,7 +130,7 @@ router.post('/create', [auth, admin], (req, res)=>
 
     const newPost = new Post(
       {
-        user: req.user.id,
+        user: req.session.user,
         category: req.body.category,
         title: req.body.title,
         summary: req.body.summary,
@@ -189,7 +190,7 @@ router.put('/edit/:id', [auth, admin], (req, res)=> {
       allowComments = false;
     }
     // Updating our original post.
-    post.user = req.user.id;
+    post.user = req.session.user;
     post.category = req.body.category;
     post.title = req.body.title;
     post.summary = req.body.summary,

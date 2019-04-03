@@ -1,14 +1,13 @@
+const Category = require('../../models/Category');
+const Post = require('../../models/Post');
+const User = require('../../models/User');
 const _ = require('lodash');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
-const Category = require('../../models/Category');
 const config = require('config');
 const express = require('express');
-const Post = require('../../models/Post');
 const router = express.Router();
 const Instagram = require('node-instagram').default;
-const User = require('../../models/User');
-
 
 
 /*
@@ -33,7 +32,7 @@ router.all('/*', (req, res, next)=>{
 */
 router.get('/', (req, res)=>{
   const 
-  perPage = 5;
+  perPage = 2;
   const page = req.query.page || 1;
 
   Post.find({})
@@ -65,26 +64,32 @@ router.get('/', (req, res)=>{
 */
 router.get('/instagram', (req, res)=>
 {
-    let feed = new Instagram(
-    {
-        get: 'user',
-        clientId: '4985060604',
-        clientSecret: 'bdbcbc4c351a494a8fe357f92dfeca67',
-        accessToken: '8042881690.873f500.bfbe84ed382949baa21f3a7a079d98f7'
+    // let feed = new Instagram(
+    // {
+    //     get: 'user',
+    //     clientId: '4985060604',
+    //     clientSecret: 'bdbcbc4c351a494a8fe357f92dfeca67',
+    //     accessToken: '8042881690.873f500.bfbe84ed382949baa21f3a7a079d98f7'
 
-    });
-    feed.get('users/self', (err, data)=>
-    {
-        if (err) {console.log(err);}
-        else {console.log(data);}
-    });
-    feed.get('users/self/media/recent', (err, data)=>
-    {
-      if (err) {console.log(err);}
-      else {console.log(data); console.log(data.username);}
-      res.render('home/instagram', {posts: data, postsLink: data.link});
-    });
+    // });
+    // feed.get('users/self', (err, data)=>
+    // {
+    //     if (err) {console.log(err);}
+    //     // else {console.log(data);}
+    // });
+    // feed.get('users/self/media/recent', (err, data)=>
+    // {
+    //   if (err) {console.log(err);}
+    //   else 
+    //   {
+    //     console.log(data);
+    //   }
+    //   // else {console.log(data); console.log(data.username);}
+    //   res.render('home/instagram', {posts: data, postsLink: data.link});
+    // });
     
+// });
+res.redirect('https://www.instagram.com/officialrichmondrow/');
 });
 
 /*
@@ -334,12 +339,12 @@ router.get('/register', (req, res)=>{
 |
 */
 router.get('/post/:slug', (req, res)=>{
-  console.log('\nTesting123\n');
+  console.log();
   let currentUser = req.session.user;
   Post.findOne({slug: req.params.slug})
   
-  .populate({path: 'comments', populate: {path: 'user', model: 'User'}})
-  // .populate('user')
+  .populate({path: 'comments', populate: {path: 'user', model: 'users'}})
+  .populate('user')
 
   .then(post=>{
     Category.find({}).then(categories=>

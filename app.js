@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 const config = require('config');
 const express = require('express');
@@ -47,7 +48,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Load handler functions
 
 const {select, generateDate, paginate} = require('./helpers/handlebars-helpers');
-
 // Set View Engine
 
 app.engine('handlebars', exphbs({defaultLayout: 'home', helpers: {select: select, generateDate: generateDate, paginate: paginate}}));
@@ -99,12 +99,14 @@ app.use((req, res, next)=>
 
 // Load Routes
 
-const auth = require('./routes/auth');
 const home = require('./routes/home/index');
-const logout = require('./routes/logout');
 const users = require('./routes/home/users');
+const auth = require('./routes/auth');
+const submissions = require('./routes/home/submissions');
 const admin = require('./routes/admin/index');
 const posts = require('./routes/admin/posts');
+const adminSubmissions = require('./routes/admin/submissions');
+const logout = require('./routes/logout');
 const categories = require('./routes/admin/categories');
 const comments = require('./routes/admin/comments');
 const newcomment = require('./routes/home/post-comment');
@@ -113,13 +115,15 @@ const newcomment = require('./routes/home/post-comment');
 
 app.use('/', home);
 app.use('/auth', auth);
-app.use('/home/users', users);
 app.use('/logout', logout);
+app.use('/home/users', users);
+app.use('/home/post-comment', newcomment);
+app.use('/home/submissions', submissions);
 app.use('/admin', admin);
 app.use('/admin/posts', posts);
 app.use('/admin/categories', categories);
 app.use('/admin/comments', comments);
-app.use('/home/post-comment', newcomment);
+app.use('/admin/submissions', adminSubmissions);
 
 
 app.listen(4500, ()=>{

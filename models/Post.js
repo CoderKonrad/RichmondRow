@@ -5,6 +5,13 @@ const URLSlugs = require('mongoose-url-slugs');
 const PostSchema = new Schema({
 
   // Starting to define our schema here.
+  potd: {
+
+    type: Boolean,
+    ref: 'potd'
+
+  },
+  
   user: {
 
     type: Schema.Types.ObjectId,

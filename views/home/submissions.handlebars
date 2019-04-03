@@ -1,0 +1,106 @@
+
+<div class="container-potd">
+    <div class="jumbotron jumbotron-fluid" style="margin:0;">
+        <div class="container">
+            <h1 class="display-4">Get Featured</h1>
+            <p>Fill out the form below for a chance to be on our front page.</p>
+        </div>
+    </div>
+</div>
+{{>home/header}}
+
+<div class="card card-login mx-auto mt-0">
+  {{>home/form-msgs}}
+
+  <div class="card-header">Submit a Photo or Video</div>
+
+    <div class="card-body">
+      <form action="/home/submissions/submit" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="file"><strong>Upload your photo or video file(s)</strong></label>
+            <input required name="fileUpload" type="file" class="form-control" id="fileupload" accept="image/*, video/*">
+        </div>
+        
+        <div class="form-group" style="display:none;" id="toggleDesc">
+          <label for="inputDescription"><strong>Describe your photo or video</strong></label>
+          <textarea name="description" class="form-control" cols="30" rows="10" id="inputDescription"></textarea>
+        </div>
+
+        <div class="form-group">
+            <a id="addDesc" onclick="toggleDescription();" href="#">Add a description...</a>
+        </div>
+
+
+        <div class="form-group">
+          <label for="inputEmail"><strong>What is your name?</strong></label>
+          <input required type="name" name="name" class="form-control" id="inputEmail" placeholder="Full Name">
+        </div>
+        <div class="form-group">
+          <label for="inputPassword"><strong>What is your email address?</strong></label>
+          <input required type="email" name="email" class="form-control" id="inputPassword" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="yesno"><strong>If we use your content, would you like to be tagged? (Click one)</strong></label>
+            <br>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="yesno">
+                <label class="btn btn-success">
+                    <input type="radio" name="confirmTag" onclick="yesTag();" id="option1" autocomplete="off"> Yes
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="denyTag" onclick="noTag();" id="option2" autocomplete="off"> No
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+function toggleDescription() 
+{
+  var i = document.getElementById('inputDescription');
+  var d = document.getElementById('addDesc');
+  var e = document.getElementById('toggleDesc');
+  if(e.style.display == 'block')
+  {
+    d.innerHTML = 'Add a description...';
+    e.style.display = 'none';
+    i.value = "";
+  }
+  else
+  {
+    d.innerHTML = 'Remove description';
+    e.style.display = 'block';
+  }
+}
+
+function yesTag()
+{
+  alert("Hello");
+  var e = document.getElementById('yesDIV');
+  if(e.style.display == 'block')
+  {
+    e.style.display = 'none';
+  }
+  else
+  {
+    e.style.display = 'block';
+  }
+}
+
+function noTag()
+{
+  var e = document.getElementById('noDIV');
+  if(e.style.display == 'block')
+  {
+    e.style.display = 'none';
+  }
+  else
+  {
+    e.style.display = 'block';
+  }
+}
+</script>
+

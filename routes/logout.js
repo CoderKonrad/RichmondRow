@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const {User} = require('../models/User');
+const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
 const mongoose = require('mongoose');

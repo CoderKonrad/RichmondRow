@@ -147,6 +147,11 @@ video
 {
   background-color: white;
 }
+
+.centered
+{
+  text-align: center;
+}
 /* Media settings here */
 
 @media (max-width: 992px)

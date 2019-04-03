@@ -1,0 +1,43 @@
+<h1>All Submissions</h1>
+
+<!-- {{>home/form-msgs}} -->
+
+<table class="table  table-bordered">
+
+  <thead>
+    <tr>
+
+      <th>Submission ID</th>
+      <th>File</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Date</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- Loop here through all posts -->
+    {{#each submissions}}
+    <tr>
+
+      <td>{{id}}</td>
+      <td><img height="50" class="img-responsive" src="/uploads/{{file}}"></td>
+      <td>{{name}}</td>
+      <td>{{status}}</td>
+      <td>{{generateDate date 'MMMM Do, YYYY'}}</td>
+      <td>
+          <a href="/admin/submissions/feature/{{id}}" class="btn btn-info" style="display:inline-block;">Feature</a>
+
+          <form action="/admin/submissions/{{id}}?_method=DELETE" method="post" style="display:inline-block;">
+            <button type="submit" class="btn btn-danger" name="button" style="display:inline-block;">Delete</button>
+          </form>
+      </td>
+
+    </tr>
+
+    {{/each}}
+
+  </tbody>
+
+</table>

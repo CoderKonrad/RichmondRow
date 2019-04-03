@@ -1,0 +1,63 @@
+<h1>Feature a Submission</h1>
+
+{{#each errors}}
+  <div class="alert alert-danger">
+    {{message}}
+  </div>
+
+{{/each}}
+
+<form action="/admin/submissions/feature/{{submission.id}}" method="post" enctype="multipart/form-data">
+<!-- What is the post title? -->
+  <div class="form-group">
+    <label for="title"><strong>Title</strong></label>
+    <input required name="title" type="text" class="form-control" id="title" placeholder="Post title" >
+  </div>
+
+<!-- Category of Post. -->
+  <div class="form-group">
+    <label for="status"> <strong>Category</strong> </label>
+    <select class="form-control" name="category" id="status">
+    {{#each categories}}
+        <option value="{{id}}">{{name}}</option>
+    {{/each}}
+    </select>
+  </div>
+
+<!-- Post body/description. -->
+  <div class="form-group">
+    <label for="body"> <strong>Summary</strong> </label>
+    <textarea required name="summary" class="form-control" cols="30" rows="4" id="summary" placeholder="Post Summary" ></textarea>
+  </div>
+
+<!-- File upload section. -->
+<div class="form-group">
+  <label for="submissionMedia"> <strong>Media</strong> </label>
+  <br>
+  <img height="200" class="img-responsive" src="/uploads/{{submission.file}}" alt="" id="submissionMedia">
+</div>
+
+<!-- Status of post, visibility. -->
+  <div class="form-group">
+    <label for="status"> <strong>Status</strong> </label>
+    <select class="form-control" name="status" id="status">
+      <option value="public">Public</option>
+      <option value="private">Private</option>
+      <option value="draft">Draft</option>
+    </select>
+  </div>
+<!-- Will commoents be allowed on this post? -->
+  <div class="form-check">
+    <label for="allowComments" class="form-check-label">
+    <input name="allowComments" type="checkbox" class="form-check-input" id="allowComments">
+        Allow Comments
+    </label>
+  </div>
+<!-- Post body/description. -->
+  <div class="form-group">
+    <label for="body"> <strong>Description</strong> </label>
+    <textarea required name="body" class="form-control" cols="30" rows="10" id="body" placeholder="Post Description" ></textarea>
+  </div>
+<!-- Submit post button. -->
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
