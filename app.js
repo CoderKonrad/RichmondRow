@@ -16,6 +16,7 @@ const passport = require('passport');
 
 app.use(busboy());
 
+app.set('trust proxy', 1);
 app.use(sessions({
   name: 'sid',
   secret: config.get('jwtPrivateKey'),
@@ -23,8 +24,9 @@ app.use(sessions({
   
   saveUninitialized: false,
   cookie: {
+    maxAge: 86400000,
     sameSite: true,
-    secure: false
+    secure: true
   }
 }));
 
@@ -36,8 +38,9 @@ if (!config.get('jwtPrivateKey'))
 
 // Connect to DB
 
+const db = config.get('db');
 mongoose.Promise = global.Promise;
-mongoose.connect(mongoDbUrl, { useNewUrlParser: true }).then((db)=>{
+mongoose.connect(db, { useNewUrlParser: true }).then((connected)=>{
 
   console.log('MONGO Connected')
 
