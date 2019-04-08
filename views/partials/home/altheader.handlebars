@@ -1,0 +1,53 @@
+<!-- Top of navbar settings here -->
+
+
+<!-- Navbar settings here -->
+<div class="container navbar-container-alt" style="max-width:100%;">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <h2 class="mobile-h2">Richmond Row</h2>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <ul class="navbar-nav">
+        <a class="navbar-brand" href="/">
+          <img src="/media/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          Richmond Row
+        </a>
+        {{#if admin}}
+        <li class="nav-item" >
+          <a class="nav-link" href="/admin">Admin<span class="sr-only">(current)</span></a>
+        </li>
+        {{/if}}
+        <li class="nav-item">
+          <a class="nav-link" href="/blog">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Merchandise</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/instagram">Instagram</a>
+        </li>
+        {{#unless user}}
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a id="focus" class="nav-link" href="/register">Sign Up</a>
+        </li>
+        {{/unless}}
+        {{#if user}}
+        <li class="nav-item">
+          <form  action="/logout/" method="post">
+            <input id="logout" class="btn nav-link" type="submit" value="Logout">
+          </form>
+          
+        </li>
+        {{/if}}
+      </ul>
+    </div>
+  </nav>
+</div>

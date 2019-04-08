@@ -3,6 +3,7 @@ const auth = require('../../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
+const Potd = require('../../models/Featured');
 const fs = require('fs');
 const path = require('path');
 const { isEmpty, uploadDir } = require('../../helpers/upload-helper');
@@ -108,7 +109,7 @@ router.post('/create', [auth, admin], (req, res)=>
 
     let filename = '';
 
-     if(!isEmpty(req.files))
+     if(!isEmpty(req.files.fileUpload))
      {
        let file = req.files.fileUpload;
        filename = Date.now() + '-' + file.name;
@@ -127,6 +128,7 @@ router.post('/create', [auth, admin], (req, res)=>
     {
         allowComments = false;
     }
+
 
     const newPost = new Post(
       {
@@ -217,6 +219,40 @@ router.put('/edit/:id', [auth, admin], (req, res)=> {
       res.redirect('/admin/posts');
     });
   });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Adding to POTD functionality
+|--------------------------------------------------------------------------
+*/
+router.post('/potd/:id', [auth, admin], (req, res)=>
+{
+  Post.findOne({_id: req.params.id})
+    .populate('comments')
+    .then(post=>
+    {
+      Potd.remove({});
+      const newPotd = new Potd(
+        {
+          user: post.user,
+          title: post.title,
+          category: post.category,
+          slug: post.slug,
+          file: post.file,
+          igAccount: post.igAccount
+      });
+
+      newPotd.save().then(savedPost =>
+      {
+        console.log(savedPost);
+        req.flash('success_message', `Post ${savedPost.title} was successfully featured`);
+        res.redirect('/admin/posts');
+      }).catch(error =>
+        {
+          console.log(error.errors, 'Could not save potd!');
+        });
+      })
 });
 
 /*

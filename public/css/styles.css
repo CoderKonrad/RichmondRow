@@ -8,7 +8,7 @@ body, html
 .parallax
 {
   background-image: url(../media/img1.jpg);
-  height: 76.9vh;
+  height: 100vh;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -44,6 +44,10 @@ body, html
 {
   color: red;
 }
+#logout:hover 
+{
+  color: red;
+}
 ul
 {
   margin: auto;
@@ -53,11 +57,28 @@ ul
 {
   background-color: #840011;
   z-index: 1;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
 
+.navbar-container-alt
+{
+  background-color: #FFFFFF;
+  z-index: 1;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
 
+.navbar-container-scrolled
+{
+  background-color: white;
+  z-index: 1;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
 /* Top image here */
 
 
@@ -158,7 +179,7 @@ video
 {
   .parallax
   {
-    height: 91.5vh;
+    height: 100vh;
   }
   .jumbotron-toggle
   {

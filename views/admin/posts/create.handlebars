@@ -1,3 +1,6 @@
+<script src="/public/dist/summernote-bs4.js"></script>
+<script src="/public/dist/summernote.js"></script>
+
 <h1>Create Post</h1>
 
 {{#each errors}}
@@ -55,8 +58,9 @@
 <!-- Post body/description. -->
   <div class="form-group">
     <label for="body"> <strong>Description</strong> </label>
-    <textarea required name="body" class="form-control" cols="30" rows="10" id="body" placeholder="Post Description" ></textarea>
+    <textarea  required name="body" class="form-control" cols="30" rows="10" id="summernote" placeholder="Post Description" ></textarea>
   </div>
 <!-- Submit post button. -->
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+

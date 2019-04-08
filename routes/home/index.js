@@ -1,3 +1,6 @@
+const express = require('express');
+const router = express.Router();
+const Potd = require('../../models/Featured');
 const Category = require('../../models/Category');
 const Post = require('../../models/Post');
 const User = require('../../models/User');
@@ -5,8 +8,6 @@ const _ = require('lodash');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const config = require('config');
-const express = require('express');
-const router = express.Router();
 const Instagram = require('node-instagram').default;
 
 
@@ -44,13 +45,17 @@ router.get('/', (req, res)=>{
     {
       Category.find({}).then(categories=>
       {
-        res.render('home/index',
+        Potd.findOne({}).then(potd=>
         {
-          posts: posts,
-          categories: categories,
-          current: parseInt(page),
-          pages: Math.ceil(postCount / perPage),
-          user: req.session.user,
+          res.render('home/index',
+          {
+            posts: posts,
+            categories: categories,
+            current: parseInt(page),
+            pages: Math.ceil(postCount / perPage),
+            user: req.session.user,
+            potd: potd
+          });
         });
       });
     });
@@ -64,32 +69,7 @@ router.get('/', (req, res)=>{
 */
 router.get('/instagram', (req, res)=>
 {
-    // let feed = new Instagram(
-    // {
-    //     get: 'user',
-    //     clientId: '4985060604',
-    //     clientSecret: 'bdbcbc4c351a494a8fe357f92dfeca67',
-    //     accessToken: '8042881690.873f500.bfbe84ed382949baa21f3a7a079d98f7'
-
-    // });
-    // feed.get('users/self', (err, data)=>
-    // {
-    //     if (err) {console.log(err);}
-    //     // else {console.log(data);}
-    // });
-    // feed.get('users/self/media/recent', (err, data)=>
-    // {
-    //   if (err) {console.log(err);}
-    //   else 
-    //   {
-    //     console.log(data);
-    //   }
-    //   // else {console.log(data); console.log(data.username);}
-    //   res.render('home/instagram', {posts: data, postsLink: data.link});
-    // });
-    
-// });
-res.redirect('https://www.instagram.com/officialrichmondrow/');
+  res.redirect('https://www.instagram.com/officialrichmondrow/');
 });
 
 /*
@@ -100,6 +80,44 @@ res.redirect('https://www.instagram.com/officialrichmondrow/');
 router.get('/about', (req, res)=>{
 
   res.render('home/about');
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Render blog page
+|--------------------------------------------------------------------------
+*/
+router.get('/blog', (req, res)=>{
+
+  const 
+  perPage = 10;
+  const page = req.query.page || 1;
+
+  Post.find({})
+  .skip((perPage * page) - perPage)
+  .limit(perPage)
+  .then(posts =>
+  {
+    Post.count().then(postCount=>
+    {
+      Category.find({}).then(categories=>
+      {
+        Potd.findOne({}).then(potd=>
+        {
+          res.render('home/blog',
+          {
+            posts: posts,
+            categories: categories,
+            current: parseInt(page),
+            pages: Math.ceil(postCount / perPage),
+            user: req.session.user,
+            potd: potd
+          });
+        });
+      });
+    });
+  });
 
 });
 

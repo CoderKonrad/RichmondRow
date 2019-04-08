@@ -66,15 +66,10 @@ app.use(bodyParser.json());
 
 app.use(methodOverride('_method'));
 
-// Load sessions
+// Post Production
 
-app.use(sessions(
-  {
-    secret: 'anthonylasochalovesparties',
-    resave: true,
-    saveUninitialized: true
-  }
-));
+require('./middleware/prod')(app);
+
 
 // Load flash
 

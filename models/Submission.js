@@ -47,6 +47,13 @@ const SubmissionSchema = new Schema({
 
   },
 
+  igAccount: {
+
+    type: String,
+    ref: 'igAccount'
+
+  },
+
   status: {
     
     type: Boolean

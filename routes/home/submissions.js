@@ -25,7 +25,8 @@ router.post('/submit', (req, res) =>
             name: req.body.name,
             description: req.body.description,
             email: req.body.email,
-            file: filename
+            file: filename,
+            igAccount: req.body.igAccount
         }
     );
 

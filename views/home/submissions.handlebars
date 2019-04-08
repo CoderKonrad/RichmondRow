@@ -19,7 +19,7 @@
 
         <div class="form-group">
             <label for="file"><strong>Upload your photo or video file(s)</strong></label>
-            <input required name="fileUpload" type="file" class="form-control" id="fileupload" accept="image/*, video/*">
+            <input required name="fileUpload" type="file" class="form-control" id="fileupload" accept="image/*, .mp4, .mov, .gif">
         </div>
         
         <div class="form-group" style="display:none;" id="toggleDesc">
@@ -41,16 +41,22 @@
           <input required type="email" name="email" class="form-control" id="inputPassword" placeholder="Email">
         </div>
         <div class="form-group">
-            <label for="yesno"><strong>If we use your content, would you like to be tagged? (Click one)</strong></label>
+            <label for="yesno"><strong>If we use your content, would you like to be tagged on IG? (Click one)</strong></label>
             <br>
             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="yesno">
                 <label class="btn btn-success">
-                    <input type="radio" name="confirmTag" onclick="yesTag();" id="option1" autocomplete="off"> Yes
+                    <a name="confirmTag" onclick="yesTag();" id="option1" autocomplete="off" class="btn"> Yes </a>
                 </label>
                 <label class="btn btn-secondary">
-                    <input type="radio" name="denyTag" onclick="noTag();" id="option2" autocomplete="off"> No
+                    <a name="denyTag" onclick="noTag();" id="option2" autocomplete="off" class="btn"> No </a>
                 </label>
             </div>
+        </div>
+        <div class="input-group mb-3" id="yesDIV" style="display:none">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">@</span>
+            <input type="text" name="igAccount" id="igAccount" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
       </form>
@@ -78,29 +84,14 @@ function toggleDescription()
 
 function yesTag()
 {
-  alert("Hello");
   var e = document.getElementById('yesDIV');
-  if(e.style.display == 'block')
-  {
-    e.style.display = 'none';
-  }
-  else
-  {
-    e.style.display = 'block';
-  }
+  e.style.display = 'block';
 }
 
 function noTag()
 {
-  var e = document.getElementById('noDIV');
-  if(e.style.display == 'block')
-  {
-    e.style.display = 'none';
-  }
-  else
-  {
-    e.style.display = 'block';
-  }
+  var e = document.getElementById('yesDIV');
+  e.style.display = 'none';
 }
 </script>
 

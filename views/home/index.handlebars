@@ -1,5 +1,6 @@
 <!-- Main container, holds the featured content slideshow reel. -->
 
+
   <header>
     <!-- <div class="container-full">
       <img class="img-fluid" src="img1.jpg" alt="">
@@ -40,7 +41,7 @@
         </li>
         {{/if}}
         <li class="nav-item">
-          <a class="nav-link" href="#">Blog</a>
+          <a class="nav-link" href="/blog">Blog</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Merchandise</a>
@@ -60,7 +61,7 @@
         {{#if user}}
         <li class="nav-item">
           <form  action="/logout/" method="post">
-            <input class="btn btn-link" type="submit" value="Logout">
+            <input id="logout" class="btn nav-link" type="submit" value="Logout">
           </form>
           
         </li>
@@ -70,6 +71,7 @@
   </nav>
 </div>
 
+{{#if potd}}
 <!-- POST OF THE DAY -->
 <div class="container-potd">
   <div class="jumbotron jumbotron-fluid" style="margin:0;">
@@ -77,16 +79,18 @@
       <h1 class="display-4">Post Of The Day</h1>
     </div>
   </div>
+  
 
   <!-- FEATURED POST -->
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <a style="margin-top:2em;" class="text-white" href="">@armitage</a>
+      <a style="margin-top:2em;" class="text-white" href="http://instagram.com/{{potd.igAccount}}">{{potd.igAccount}}</a>
     </div>
     <div class="row">
     <video style="padding:2em;" controls loop>
-      <source style="padding:2em;" src="/media/vid1.mp4" type="video/mp4">
+      <source style="padding:2em;" src="/uploads/{{potd.file}}" type="video/mp4">
     </video>
+      {{!-- <img src="/uploads/{{potd.file}}" alt="" class="img-fluid" style="max-height:45vw; width:auto; margin: auto; padding: 2em 0 2em 0;"> --}}
     </div>
     <div class="row justify-content-center">
       <a href="/home/submissions/" class="btn btn-danger btn-lg" style="margin-bottom:2em;" role="button">GET FEATURED</a>
@@ -94,18 +98,20 @@
   </div>
 </div>
 
+{{/if}}
+
 
 <!-- MERCHANDISE -->
-<div class="jumbotron jumbotron-fluid" style="margin:0;">
+{{!-- <div class="jumbotron jumbotron-fluid" style="margin:0;">
   <div class="container">
     <h1 class="display-4">Merchandise</h1>
   </div>
-</div>
+</div> --}}
 
 <!-- MERCHANDISE CONTENT -->
-<div class="container-fluid container-merch">
+{{!-- <div class="container-fluid container-merch"> --}}
 
-  <!-- ROW 1 -->
+  {{!-- <!-- ROW 1 -->
   <div class="row">
     <div class="col-sm">
       <div class="card-merch">
@@ -151,8 +157,8 @@
         <h5 class="h-merch item-6">Shotgunner <br> $75</h5>
       </div>
     </div>
-  </div>
-</div>
+  </div> --}}
+{{!-- </div>  --}}
 
 <!-- BLOG POSTS -->
 <div class="jumbotron jumbotron-fluid" style="margin:0;">
@@ -185,12 +191,10 @@
 <!-- PAGINATION -->
 
 <ul class="pagination justify-content-center mb-4">
-  {{#paginate current=current pages=pages}}
-
-
-
-  {{/paginate}}
+  <a style="padding-bottom:1em; color:white;" class="" href="/blog">Read More...</a>
 </ul>
 
 
 </div>
+
+

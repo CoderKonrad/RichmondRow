@@ -41,6 +41,10 @@
 
 <script src="/js/admin/bootstrap-switch.min.js"></script>
 
+<script src="/dist/summernote-bs4.js"></script>
+<script src="/dist/summernote.js"></script>
+<script src="/dist/summernote.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
@@ -87,7 +91,14 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            height: 300
+        });
 
+    });
+  </script>
 
 
 

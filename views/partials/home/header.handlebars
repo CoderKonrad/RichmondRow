@@ -23,7 +23,7 @@
         </li>
         {{/if}}
         <li class="nav-item">
-          <a class="nav-link" href="#">Blog</a>
+          <a class="nav-link" href="/blog">Blog</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Merchandise</a>
@@ -42,7 +42,7 @@
         {{#if user}}
         <li class="nav-item">
           <form  action="/logout/" method="post">
-            <input class="btn btn-link" type="submit" value="Logout">
+            <input id="logout" class="btn nav-link" type="submit" value="Logout">
           </form>
           
         </li>

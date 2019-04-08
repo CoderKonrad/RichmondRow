@@ -2,6 +2,7 @@ const admin = require('../../middleware/admin');
 const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
+const Potd = require('../../models/Featured');
 const Comment = require('../../models/Comment');
 const Category = require('../../models/Category');
 const faker = require('faker');
@@ -25,7 +26,10 @@ router.get('/', [auth, admin], (req, res)=>{
     {
       Category.count().then(categoryCount=>
       {
-        res.render('admin/index', {postCount: postCount, commentCount: commentCount, categoryCount: categoryCount});
+        Potd.findOne({}).then(potd=>
+        {
+          res.render('admin/index', {postCount: postCount, commentCount: commentCount, categoryCount: categoryCount, potd: potd});
+        })
       });
     });
   });

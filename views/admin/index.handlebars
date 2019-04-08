@@ -1,10 +1,29 @@
+<div class="container-fluid">
 <div class="row">
   <div class="col-12">
+    {{#if potd}}
+    <div class="row">
       <h1>Featured Post</h1>
+    </div> 
+    <div class="row">
+      <p><strong>Title:</strong> {{potd.title}}</p>
+    </div> 
+    <div class="row">
+      <img src="/uploads/{{potd.file}}" alt="" class="img-fluid" style="max-height: 25vw; padding: 0 0 1em 0;">
+    </div>
+    <div class="row">
+      <form action="/admin/submissions/potd/{{potd.id}}?_method=DELETE" method="post" style="display:inline-block;">
+        <button type="submit" class="btn btn-danger" name="button" style="display:inline-block;">Delete</button>
+      </form>
+    </div>
+    {{/if}}
+    <div class="row">
       <h1>Header Slideshow</h1>
+    </div>
   </div>
 
 
+</div>
 </div>
 <div class="row">
   <div class="col-12">

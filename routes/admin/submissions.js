@@ -5,6 +5,7 @@ const router = express.Router();
 const Submission = require('../../models/Submission');
 const Category = require('../../models/Category');
 const Post = require('../../models/Post');
+const Potd = require('../../models/Featured');
 const { isEmpty, uploadDir } = require('../../helpers/upload-helper');
 const fs = require('fs');
 const path = require('path');
@@ -41,6 +42,7 @@ router.get('/', [auth, admin], (req, res)=>
 */
 router.delete('/:id', [auth, admin], (req, res)=>
 {
+  console.log('Deleting submission...');
   Submission.findOne({_id: req.params.id})
     .populate('names')
     .then(submission=>
@@ -52,6 +54,26 @@ router.delete('/:id', [auth, admin], (req, res)=>
           req.flash('success_message', 'Submission was successfully deleted');
           res.redirect('/admin/submissions');
         });
+      });
+    });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Deleting potd functionality
+|--------------------------------------------------------------------------
+*/
+router.delete('/potd/:id', [auth, admin], (req, res)=>
+{
+  console.log('Deleting POTD...');
+  Potd.findOne({})
+    .populate('names')
+    .then(potd=>
+    {
+      potd.remove().then(potdRemoved=>
+      {
+        req.flash('success_message', 'Potd was successfully deleted');
+        res.redirect('/admin');
       });
     });
 });
@@ -146,6 +168,39 @@ router.post('/feature/:id', [auth, admin], (req, res)=>
     }
   });
   
+});
+
+/*
+|--------------------------------------------------------------------------
+| Adding to POTD functionality
+|--------------------------------------------------------------------------
+*/
+router.post('/potd/:id', [auth, admin], (req, res)=>
+{
+  Submission.findOne({_id: req.params.id})
+    .then(post=>
+    {
+      Potd.remove({});
+      const newPotd = new Potd(
+        {
+          user: post.user,
+          title: post.title,
+          category: post.category,
+          slug: post.slug,
+          file: post.file,
+          igAccount: post.igAccount
+      });
+
+      newPotd.save().then(savedPost =>
+      {
+        console.log(savedPost);
+        req.flash('success_message', `Post ${savedPost.title} was successfully featured`);
+        res.redirect('/admin/posts');
+      }).catch(error =>
+        {
+          console.log(error.errors, 'Could not save potd!');
+        });
+      })
 });
 
 

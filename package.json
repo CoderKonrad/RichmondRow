@@ -4,11 +4,15 @@
   "description": "Richmond Row Project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "keywords": [
     "CMS"
   ],
+  "engines": {
+    "node": "11.11.0"
+  },
   "author": "Konrad Gapinski",
   "license": "ISC",
   "dependencies": {
@@ -16,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "busboy": "^0.3.0",
+    "compression": "^1.7.4",
     "config": "^3.0.1",
     "connect-busboy": "0.0.2",
     "connect-flash": "^0.1.1",
@@ -26,6 +31,7 @@
     "express-session": "^1.15.6",
     "express-validator": "^5.3.1",
     "faker": "^4.1.0",
+    "helmet": "^3.16.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.0",
     "lodash": "^4.17.11",
